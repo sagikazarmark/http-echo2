@@ -8,7 +8,7 @@
 
 ## Usage
 
-TODO
+Use in Kubernetes deployments.
 
 
 ## Development
