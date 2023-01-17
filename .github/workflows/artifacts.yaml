@@ -21,7 +21,7 @@ jobs:
         id: meta
         uses: docker/metadata-action@v4
         with:
-          images: ghcr.io/sagikazarmark/http-echo2
+          images: ghcr.io/${{ github.repository_owner }}/http-echo2
           flavor: |
             latest = false
           tags: |
@@ -46,7 +46,6 @@ jobs:
           password: ${{ github.token }}
         if: github.event_name == 'push'
 
-
       - name: Build and push
         uses: docker/build-push-action@v3
         with:
@@ -61,7 +60,7 @@ jobs:
       - name: Run Trivy vulnerability scanner
         uses: aquasecurity/trivy-action@0.8.0
         with:
-          image-ref: "ghcr.io/sagikazarmark/http-echo2:${{ fromJSON(steps.meta.outputs.json).labels['org.opencontainers.image.version'] }}"
+          image-ref: "ghcr.io/${{ github.repository_owner }}/http-echo2:${{ fromJSON(steps.meta.outputs.json).labels['org.opencontainers.image.version'] }}"
           format: "sarif"
           output: "trivy-results.sarif"
         if: github.event_name == 'push'
