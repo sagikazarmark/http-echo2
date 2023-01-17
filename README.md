@@ -8,7 +8,7 @@
 
 ## Usage
 
-Use in Kubernetes deployments.
+Use in Kubernetes and other deployments.
 
 
 ## Development
