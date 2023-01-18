@@ -12,6 +12,9 @@ jobs:
   container-images:
     name: Container images
     runs-on: ubuntu-latest
+    permissions:
+      packages: write
+      contents: read
 
     steps:
       - name: Checkout
