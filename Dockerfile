@@ -14,7 +14,7 @@ COPY . .
 RUN go build -o /usr/local/bin/http-echo2 .
 
 
-FROM alpine:3.17.1
+FROM alpine:3.17.3
 
 RUN apk add --update --no-cache ca-certificates tzdata bash curl
 
