@@ -1,20 +1,33 @@
-FROM golang:1.20.2-alpine3.16 AS builder
+FROM --platform=$BUILDPLATFORM tonistiigi/xx:1.2.1@sha256:8879a398dedf0aadaacfbd332b29ff2f84bc39ae6d4e9c0a1109db27ac5ba012 AS xx
 
-RUN apk add --update --no-cache ca-certificates make git curl
+FROM --platform=$BUILDPLATFORM golang:1.20.3-alpine3.16@sha256:29c4e6e307eac79e5db29a261b243f27ffe0563fa1767e8d9a6407657c9a5f08 AS builder
 
-WORKDIR /usr/local/src/app
+COPY --from=xx / /
+
+RUN apk add --update --no-cache ca-certificates make git curl clang lld
+
+ARG TARGETPLATFORM
+
+RUN xx-apk --update --no-cache add musl-dev gcc
+
+RUN xx-go --wrap
+
+WORKDIR /usr/local/src/http-echo2
 
 ARG GOPROXY
 
-COPY go.* ./
+ENV CGO_ENABLED=0
+
+COPY go.mod ./
 RUN go mod download
 
 COPY . .
 
 RUN go build -o /usr/local/bin/http-echo2 .
+RUN xx-verify /usr/local/bin/http-echo2
 
 
-FROM alpine:3.17.3
+FROM alpine:3.17.3@sha256:124c7d2707904eea7431fffe91522a01e5a861a624ee31d03372cc1d138a3126
 
 RUN apk add --update --no-cache ca-certificates tzdata bash curl
 
