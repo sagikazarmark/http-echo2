@@ -24,11 +24,12 @@
             ];
 
             shellHook = ''
-              ${pkgs.go}/bin/go version
+              task versions
             '';
           };
 
           ci = devShells.default;
         };
-      });
+      }
+    );
 }

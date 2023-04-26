@@ -39,3 +39,8 @@ tasks:
   fmt:
     cmds:
       - golangci-lint run --fix
+
+  versions:
+    cmds:
+      - go version
+      - golangci-lint version
