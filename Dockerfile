@@ -27,7 +27,7 @@ RUN go build -o /usr/local/bin/http-echo2 .
 RUN xx-verify /usr/local/bin/http-echo2
 
 
-FROM alpine:3.18.3@sha256:7144f7bab3d4c2648d7e59409f15ec52a18006a128c733fcff20d3a4a54ba44a
+FROM alpine:3.19.0@sha256:51b67269f354137895d43f3b3d810bfacd3945438e94dc5ac55fdac340352f48
 
 RUN apk add --update --no-cache ca-certificates tzdata bash curl
 
